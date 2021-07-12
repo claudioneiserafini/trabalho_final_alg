@@ -1,7 +1,7 @@
 # Descrição Trabalho Final Algoritmos
 Trabalho final da disciplina de algoritmos - IFC
 
--- Problema 2: Cálculo do PI --*
+-- Problema 2: Cálculo do PI --
 
 O valor do PI pode ser calculado de várias maneiras, sendo que uma delas é utilizando o método de aproximação do PI proposto por Monte Carlo que pode ser visto abaixo:
 * Dado um círculo com raio r (em radianos) em um quadrado com tamanho de 2r
@@ -17,16 +17,16 @@ O valor do PI pode ser calculado de várias maneiras, sendo que uma delas é uti
 
 Exemplo de código sequencial
 ------------------------------------------------------
-npoints = 10000
-circle_count = 0
+npoints = 10000;
+circle_count = 0;
 
-do j = 1,npoints
-      generate 2 random numbers between 0 and 1
-      xcoordinate = random1
-      ycoordinate = random2
-      if (xcoordinate, ycoordinate) inside circle
-      then circle_count = circle_count + 1
-end do
+do j = 1,npoints;
+      generate 2 random numbers between 0 and 1;
+      xcoordinate = random1;
+      ycoordinate = random2;
+      if (xcoordinate, ycoordinate) inside circle;
+      then circle_count = circle_count + 1;
+end do;
 
-PI = 4.0*circle_count/npoints
+PI = 4.0*circle_count/npoints;
 ------------------------------------------------------
