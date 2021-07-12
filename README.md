@@ -13,20 +13,3 @@ O valor do PI pode ser calculado de várias maneiras, sendo que uma delas é uti
   Π / 4 = M / N 
   Π = 4 * M / N
 * Observe que quanto mais cresce o número de pontos gerados mais a aproximação do PI aumenta.
-
-
-Exemplo de código sequencial
-------------------------------------------------------
-npoints = 10000;
-circle_count = 0;
-
-do j = 1,npoints;
-      generate 2 random numbers between 0 and 1;
-      xcoordinate = random1;
-      ycoordinate = random2;
-      if (xcoordinate, ycoordinate) inside circle;
-      then circle_count = circle_count + 1;
-end do;
-
-PI = 4.0*circle_count/npoints;
-------------------------------------------------------
