@@ -18,7 +18,7 @@ int calculaPontosQuadrado();
 int calculaPontosCirculo();
 float calculaDistancia();
 float calculaValorPi();
-void mostraValorPi();
+void escrevaValorPi();
 
 // |----------------------------------------------- Implementação -------------------------------------------------|
 
@@ -59,7 +59,7 @@ float calculaValorPi(){
 }
 
 //
-void mostraValorPi(){
+void escrevaValorPi(){
   
 }
 
