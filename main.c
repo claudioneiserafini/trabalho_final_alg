@@ -13,33 +13,59 @@ typedef struct sPi{
 
 // |------------------------------------------------ Prototipação -------------------------------------------------|
 
-void gerarPontos();
+int gerarPontos();
+void calculaValorPi();
 int calculaPontosQuadrado();
 int calculaPontosCirculo();
 float calculaDistancia();
-float calculaValorPi();
 void escrevaValorPi();
 
 // |----------------------------------------------- Implementação -------------------------------------------------|
 
 //
 int main(void){
-  printf("Hello World!");
-  return 0;
+	Pi* pi;
+	int raio = 2;
+
+	int tam = gerarPontos();
+	calculaValorPi(pi, tam, raio);
+
+	return 0;
 }
 
 //
-void gerarPontos(int tam){
-  int i;
-  srand(time(NULL));
-  for(i=0; i < tam; i++){
-	  
-  }
+int gerarPontos(int tam){
+	int point_max;
+	printf("Digite o número maximo de pontos: ");
+	scanf("%i",&point_max);
+	
+	//printf("Digite o valor do raio: ");
+	//scanf("%i",&raio);
+	
+	return point_max;
+}
 
+//
+void calculaValorPi(Pi* pi, int tam, int raio){
+	srand(time(NULL));
+	int i, acertos=0;
+	float calcpi=0;
+
+	for(i = 0; i < tam; i++){
+		pi[i].x = rand()  / raio;
+		pi[i].y = rand()  / raio;
+
+		if(pi[i].x * pi[i].x + pi[i].y * pi[i].y < 1.0){
+			acertos++;
+		}
+	}
+	
+	//calcpi= (4.0 * acertos) / tam;
 }
 
 //
 int calculaPontosQuadrado(){
+  
   return 0;
 }
 
@@ -50,11 +76,6 @@ int calculaPontosCirculo(){
 
 //
 float calculaDistancia(){
-  return 0;
-}
-
-//
-float calculaValorPi(){
   return 0;
 }
 
