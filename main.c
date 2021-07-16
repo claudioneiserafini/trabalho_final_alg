@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 // |-------------------------------------------------- Struct -----------------------------------------------------|
 
@@ -13,75 +14,85 @@ typedef struct sPi{
 
 // |------------------------------------------------ Prototipação -------------------------------------------------|
 
-int gerarPontos();
-void calculaValorPi();
-int calculaPontosQuadrado();
-int calculaPontosCirculo();
-float calculaDistancia();
-void escrevaValorPi();
+int carregaPontos();
+void gerarRandom(Pi*,int);
+float calculaPontosQuadrado(Pi*,int);
+float calculaPontosCirculo(Pi*,int);
+void escrevaResultados(float,float,int);
 
 // |----------------------------------------------- Implementação -------------------------------------------------|
 
-//
+//Main
 int main(void){
-	Pi* pi;
-	int raio = 2;
+	int tam = carregaPontos();
+	Pi* pi = (Pi*) malloc(tam * sizeof(Pi));
 
-	int tam = gerarPontos();
-	calculaValorPi(pi, tam, raio);
+	gerarRandom(pi, tam);
+	float pCirculo = calculaPontosCirculo(pi, tam);
+	float pQuadrado = calculaPontosQuadrado(pi, tam);
+	escrevaResultados(pCirculo, pQuadrado , tam);
 
-	return 0;
+  return 0;
 }
 
-//
-int gerarPontos(int tam){
+//Usuario carrega quantidade de pontos para serem distribuidos.
+int carregaPontos(){
 	int point_max;
 	printf("Digite o número maximo de pontos: ");
 	scanf("%i",&point_max);
-	
-	//printf("Digite o valor do raio: ");
-	//scanf("%i",&raio);
-	
+
 	return point_max;
 }
 
-//
-void calculaValorPi(Pi* pi, int tam, int raio){
+//Gera valores aleatorios de 0 a 1, repetindo até chegar no valor de pontos fornecidos pelo usuario.
+void gerarRandom(Pi* pi, int tam){
+	int i;
 	srand(time(NULL));
-	int i, acertos=0;
-	float calcpi=0;
 
-	for(i = 0; i < tam; i++){
-		pi[i].x = rand()  / raio;
-		pi[i].y = rand()  / raio;
+	for(i = 0;i < tam;i++){
+		pi[i].x = rand() / (float)RAND_MAX;
+		pi[i].y = rand() / (float)RAND_MAX;
+	}
+}
 
-		if(pi[i].x * pi[i].x + pi[i].y * pi[i].y < 1.0){
-			acertos++;
+//Usando pitagoras para verificar se os pontos estão *DENTRO* do circulo.
+float calculaPontosCirculo(Pi* pi, int tam){
+	int i;
+	float distancia;
+	float pCirc;
+
+	for(i = 0;i < tam;i++){
+		distancia = sqrt(pi[i].x*pi[i].x + pi[i].y*pi[i].y);
+		if(distancia < 1.0){
+		pCirc ++;
 		}
 	}
-	
-	//calcpi= (4.0 * acertos) / tam;
+	return pCirc;
+}
+
+//Usando pitagoras para verificar se os pontos estão *FORA* do circulo.
+float calculaPontosQuadrado(Pi* pi, int tam){
+	int i;
+	float distancia;
+	float pQuad=0;
+
+	for(i = 0; i < tam;i++){
+		distancia = sqrt(pi[i].x*pi[i].x + pi[i].y*pi[i].y);
+		if(distancia > 1.0){
+			pQuad ++;
+		}
+	}
+	return pQuad;
 }
 
 //
-int calculaPontosQuadrado(){
-  
-  return 0;
-}
+void escrevaResultados(float pCirculo, float pQuadrado, int tam){
+	float pi = 4 * (pCirculo / tam);
 
-//
-int calculaPontosCirculo(){
-  return 0;
-}
-
-//
-float calculaDistancia(){
-  return 0;
-}
-
-//
-void escrevaValorPi(){
-  
+	printf("\nValor de PI: %.5f",pi);
+	printf("\nPontos dentro do circulo: %.0f", pCirculo);
+	printf("\nPontos fora do circulo: %.0f", pQuadrado);
+	printf("\nPontos em cima da linha do circulo: %.0f", tam-(pQuadrado+pCirculo)); //Considerar eles dentro ou fora? Seria util criar um modulo para isso? 
 }
 
 // |---------------------------------------------- FIM DO PROGRAMA ------------------------------------------------|
