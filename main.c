@@ -38,9 +38,8 @@ int main(void){
 //Usuario carrega quantidade de pontos para serem distribuidos.
 int carregaPontos(){
 	int point_max;
-	printf("Digite o número maximo de pontos: ");
+  	printf("\n\n|============== |ESCREVA| ==============|\n|       O número maximo de pontos.      |\n|=======================================|\n| Pontos: ");
 	scanf("%i",&point_max);
-
 	return point_max;
 }
 
@@ -63,7 +62,7 @@ float calculaPontosCirculo(Pi* pi, int tam){
 
 	for(i = 0;i < tam;i++){
 		distancia = sqrt(pi[i].x*pi[i].x + pi[i].y*pi[i].y);
-		if(distancia < 1.0){
+		if(distancia <= 1.0){
 		pCirc ++;
 		}
 	}
@@ -88,11 +87,11 @@ float calculaPontosQuadrado(Pi* pi, int tam){
 //
 void escrevaResultados(float pCirculo, float pQuadrado, int tam){
 	float pi = 4 * (pCirculo / tam);
-
-	printf("\nValor de PI: %.5f",pi);
-	printf("\nPontos dentro do circulo: %.0f", pCirculo);
-	printf("\nPontos fora do circulo: %.0f", pQuadrado);
-	printf("\nPontos em cima da linha do circulo: %.0f", tam-(pQuadrado+pCirculo)); //Considerar eles dentro ou fora? Seria util criar um modulo para isso? 
+  	printf("|\n|============= |RESULTADO| =============|");
+	printf("\n|\n|         Valor de PI: %.5f",pi);
+	printf("\n|     Pontos dentro do circulo: %.0f", pCirculo);
+	printf("\n|      Pontos fora do circulo: %.0f", pQuadrado);
+ 	printf("\n|\n|=============== |ALUNO| ===============|\n|      Claudionei Lovato Serafini.      |\n|=======================================|\n\n");
 }
 
 // |---------------------------------------------- FIM DO PROGRAMA ------------------------------------------------|
