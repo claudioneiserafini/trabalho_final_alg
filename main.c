@@ -38,7 +38,7 @@ int main(void){
 //Usuario carrega quantidade de pontos para serem distribuidos.
 int carregaPontos(){
 	int point_max;
-  	printf("\n\n|============== |ESCREVA| ==============|\n|       O número maximo de pontos.      |\n|=======================================|\n| Pontos: ");
+  	printf("\n\n|============== |ESCREVA| ==============|\n|       O número maximo de pontos,      |\n|      para calcular o valor de PI.     |\n|=======================================|\n| Pontos: ");
 	scanf("%i",&point_max);
 	return point_max;
 }
