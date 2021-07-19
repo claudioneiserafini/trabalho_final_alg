@@ -7,32 +7,59 @@
 
 // |-------------------------------------------------- Struct -----------------------------------------------------|
 
-typedef struct sPi{
+typedef struct{
 	float x;
 	float y;
-}Pi;
+}Ponto;
 
 // |------------------------------------------------ Prototipação -------------------------------------------------|
 
+Ponto* alocaMemoriaDoPonto();
+Ponto** alocaMemoriaVetorDinamico(int);
+void desalocaVetorDinamico(Ponto**, int);
+
+
 int carregaPontos();
-void gerarRandom(Pi*,int);
-float calculaPontosQuadrado(Pi*,int);
-float calculaPontosCirculo(Pi*,int);
-void escrevaResultados(float,float,int);
+void gerarRandom(Ponto**,int);
+float calculaPontosCirculo(Ponto**,int);
+void escrevaResultados(float,int);
 
 // |----------------------------------------------- Implementação -------------------------------------------------|
 
 //Main
 int main(void){
 	int tam = carregaPontos();
-	Pi* pi = (Pi*) malloc(tam * sizeof(Pi));
+  Ponto** vet_p;
 
-	gerarRandom(pi, tam);
-	float pCirculo = calculaPontosCirculo(pi, tam);
-	float pQuadrado = calculaPontosQuadrado(pi, tam);
-	escrevaResultados(pCirculo, pQuadrado , tam);
+  //Aloca memoria vetor dinamico:
+  vet_p = alocaMemoriaVetorDinamico(tam);
 
+	gerarRandom(vet_p, tam); 
+	float pCirculo = calculaPontosCirculo(vet_p, tam); 
+	//float pQuadrado = calculaPontosQuadrado(vet_p, tam); 
+	escrevaResultados(pCirculo, tam); 
+
+  //liberar a memória
+  desalocaVetorDinamico(vet_p, tam);
   return 0;
+}
+
+//Aloca memoria do pi:
+Ponto* alocaMemoriaDoPonto(){
+  return (Ponto*) malloc(sizeof(Ponto));
+}
+
+//Aloca memoria vetor dinamico:
+Ponto** alocaMemoriaVetorDinamico(int tam){
+  return (Ponto**) malloc(sizeof(Ponto*) * tam);
+}
+
+void desalocaVetorDinamico(Ponto** vet_p, int tam){
+	int i;
+	for (i=0; i < tam; i++){
+		free(vet_p[i]);
+	}
+	free(vet_p);
 }
 
 //Usuario carrega quantidade de pontos para serem distribuidos.
@@ -43,54 +70,43 @@ int carregaPontos(){
 	return point_max;
 }
 
-//Gera valores aleatorios de 0 a 1, repetindo até chegar no valor de pontos fornecidos pelo usuario.
-void gerarRandom(Pi* pi, int tam){
+//Gera valores aleatorios entre 0 a 1, repetindo até chegar no valor de pontos fornecidos pelo usuario.
+void gerarRandom(Ponto** vet_p, int tam){
 	int i;
+ 	 Ponto* p;
 	srand(time(NULL));
 
-	for(i = 0;i < tam;i++){
-		pi[i].x = rand() / (float)RAND_MAX;
-		pi[i].y = rand() / (float)RAND_MAX;
+	for(i = 0; i < tam;i++){
+		p = alocaMemoriaDoPonto();
+		p->x = rand() / (float)RAND_MAX;
+		p->y = rand() / (float)RAND_MAX;
+    		vet_p[i] = p;
 	}
 }
 
 //Usando pitagoras para verificar se os pontos estão *DENTRO* do circulo.
-float calculaPontosCirculo(Pi* pi, int tam){
+float calculaPontosCirculo(Ponto** vet_p, int tam){
 	int i;
 	float distancia;
 	float pCirc;
 
 	for(i = 0;i < tam;i++){
-		distancia = sqrt(pi[i].x*pi[i].x + pi[i].y*pi[i].y);
+
+		distancia = sqrt((pow(vet_p[i]->x,2)) + (pow(vet_p[i]->y,2)));
 		if(distancia <= 1.0){
-		pCirc ++;
+		  pCirc ++;
 		}
 	}
 	return pCirc;
 }
 
-//Usando pitagoras para verificar se os pontos estão *FORA* do circulo.
-float calculaPontosQuadrado(Pi* pi, int tam){
-	int i;
-	float distancia;
-	float pQuad=0;
-
-	for(i = 0; i < tam;i++){
-		distancia = sqrt(pi[i].x*pi[i].x + pi[i].y*pi[i].y);
-		if(distancia > 1.0){
-			pQuad ++;
-		}
-	}
-	return pQuad;
-}
-
-//
-void escrevaResultados(float pCirculo, float pQuadrado, int tam){
-	float pi = 4 * (pCirculo / tam);
+//Saida dos resultados:
+void escrevaResultados(float pCirculo, int tam){
+	float pi = 4 * (pCirculo / (float)tam);
   	printf("|\n|============= |RESULTADO| =============|");
 	printf("\n|\n|         Valor de PI: %.5f",pi);
 	printf("\n|     Pontos dentro do circulo: %.0f", pCirculo);
-	printf("\n|      Pontos fora do circulo: %.0f", pQuadrado);
+	printf("\n|      Pontos fora do circulo: %.0f", tam-pCirculo);
  	printf("\n|\n|=============== |ALUNO| ===============|\n|      Claudionei Lovato Serafini.      |\n|=======================================|\n\n");
 }
 
