@@ -72,7 +72,7 @@ int carregaPontos(){
 //Gera valores aleatorios entre 0 a 1, repetindo até chegar no valor de pontos fornecidos pelo usuario.
 void gerarRandom(Ponto** vet_p, int tam){
 	int i;
- 	 Ponto* p;
+	Ponto* p;
 	srand(time(NULL));
 
 	for(i = 0; i < tam;i++){
