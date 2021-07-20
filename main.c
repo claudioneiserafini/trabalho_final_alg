@@ -29,18 +29,18 @@ void escrevaResultados(float,int);
 //Main
 int main(void){
 	int tam = carregaPontos();
-  Ponto** vet_p;
+	Ponto** vet_p;
 
-  //Aloca memoria vetor dinamico:
-  vet_p = alocaMemoriaVetorDinamico(tam);
+	//Aloca memoria vetor dinamico:
+	vet_p = alocaMemoriaVetorDinamico(tam);
 
 	gerarRandom(vet_p, tam); 
 	float pCirculo = calculaPontosCirculo(vet_p, tam); 
 	escrevaResultados(pCirculo, tam); 
 
-  //liberar a memória
-  desalocaVetorDinamico(vet_p, tam);
-  return 0;
+	//liberar a memória
+	desalocaVetorDinamico(vet_p, tam);
+	return 0;
 }
 
 //Aloca memoria do pi:
@@ -90,10 +90,9 @@ float calculaPontosCirculo(Ponto** vet_p, int tam){
 	float pCirc;
 
 	for(i = 0;i < tam;i++){
-
-		distancia = sqrt((pow(vet_p[i]->x,2)) + (pow(vet_p[i]->y,2)));
-		if(distancia <= 1.0){
-		  pCirc ++;
+		distancia = sqrt((pow((vet_p[i]->x - 0.5),2)) + (pow(vet_p[i]->y - 0.5,2)));
+		if(distancia <= 0.5){
+	  		pCirc ++;
 		}
 	}
 	return pCirc;
