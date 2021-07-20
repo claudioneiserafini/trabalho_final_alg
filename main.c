@@ -36,7 +36,6 @@ int main(void){
 
 	gerarRandom(vet_p, tam); 
 	float pCirculo = calculaPontosCirculo(vet_p, tam); 
-	//float pQuadrado = calculaPontosQuadrado(vet_p, tam); 
 	escrevaResultados(pCirculo, tam); 
 
   //liberar a memória
